@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
 import { Stack } from "@mui/system";
 import OrdreModal from "./OrdreModal";
-import { validateMission } from "../Api/Mission";
+//import { validateMission } from "../Api/MissionService";
 
 function createData(id, demandeur, contenu, ordre, isValid) {
   return { id, demandeur, contenu, ordre, isValid };
@@ -78,7 +78,7 @@ export default function MissionTable({ missions }) {
                  
                     variant="contained"
                     onClick={() => {
-                      validateMission(row.id);
+                      //validateMission(row.id);
                     }}
                   >
                     

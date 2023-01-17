@@ -6,10 +6,10 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import Stack from '@mui/joy/Stack';
 import Add from '@mui/icons-material/Add';
 import Typography from '@mui/joy/Typography';
-import { changeOrdre, createRemboursement } from '../Api/Remboursement';
-import { computeRemboursement } from '../Api/Remboursement';
-import { fetchRemboursementsByDemandeur } from '../Api/Remboursement';
-import { validateRemboursementPrice } from '../Api/Remboursement';
+//import { changeOrdre, createRemboursement } from '../Api/RemboursementService';
+//import { computeRemboursement } from '../Api/RemboursementService';
+//import { fetchRemboursementsByDemandeur } from '../Api/RemboursementService';
+//import { validateRemboursementPrice } from '../Api/RemboursementService';
 
 import { useState, useEffect, } from "react";
 
@@ -21,7 +21,7 @@ export default function PriceModalDialog(props) {
    const onSubmit = (e) => {
     e.preventDefault();
    // changeOrdre(id, order);
-   validateRemboursementPrice(id);
+   //validateRemboursementPrice(id);
     handleClose2();
   
     }
@@ -30,8 +30,8 @@ export default function PriceModalDialog(props) {
 
   const {open2, handleClose2, id, demandeur} = props;
   useEffect(() => {
-    computeRemboursement(id);
-    fetchRemboursementsByDemandeur(setDemandesPerUser,demandeur);
+    //computeRemboursement(id);
+    //fetchRemboursementsByDemandeur(setDemandesPerUser,demandeur);
     demandesPerUser.filter(demande=>demande.id==id).forEach(demande=>setActualDemande(demande));
     
 

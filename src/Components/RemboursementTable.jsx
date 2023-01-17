@@ -1,10 +1,10 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography, useTheme, Button, IconButton, Grid } from "@mui/material";
-import { fetchRemboursements } from "../Api/Remboursement";
+import { fetchRemboursements } from "../Api/RemboursementService";
 import * as React from "react";
 import { useEffect } from "react";
-import { validateRemboursement } from "../Api/Remboursement";
-import { validateRemboursementPrice } from "../Api/Remboursement";
+//import { validateRemboursement } from "../Api/RemboursementService";
+//import { validateRemboursementPrice } from "../Api/RemboursementService";
 import OrderModalDialog from "./ChangeOrdreRem";
 import PriceModalDialog from "./PriceValidationModal";
 import EditIcon from '@mui/icons-material/Edit';
@@ -120,7 +120,7 @@ export default function RemboursementTable(props) {
               <Button
                 variant="contained"
                 sx={{ backgroundColor: "#70d8bd" }}
-                onClick={() => validateRemboursement(id)}
+                //onClick={() => validateRemboursement(id)}
                 fullWidth
               >
                 Valider

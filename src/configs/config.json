@@ -1,0 +1,7 @@
+{
+    "SERVICE_API":"http://localhost:8081/" ,
+    "USER_SERVICE_API":"http://localhost:8081/" ,
+    "MISSION_SERVICE_API":"http://localhost:8081/missions/" ,
+    "REMBOURSEMENT_SERVICE_API":"http://localhost:8081/remboursements/" 
+
+}           
