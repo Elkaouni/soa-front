@@ -159,81 +159,33 @@ class MissionService{
 
 }
 
+export default new MissionService();
 
-
-
-const Mission_Api_Url_S1 =  "missions";
-const Mission_Api_Url_S2 =  "missions";
-const Mission_Api_Url_S3 =  "missions";
-
+// static fake checks
 //fetches all missions
+
+function createData(id, demandeur, destination, description, dateDepart, dateRetour, statut) {
+  return { id, demandeur, destination, description, dateDepart, dateRetour, statut };
+}
+
+const missions = [
+
+  createData(1, "pr karim", "France","conférence IT", "24/12/2022","24/02/2023", "Validé par chef d'imm"),
+
+  createData(2, "pr alex", "France","conférence BIGDATA", "24/01/2022","24/02/2022", "Validé"),
+
+  createData(3, "pr lamya", "Australie","Exchange", "24/02/2023","2/04/2023", "Pending"),
+
+  createData(4, "pr amine", "Japon","research", "12/12/2022","12/1/2023", "Annulé"),
+
+  createData(5, "pr dream", "Espagne","research", "24/10/2022","01/12/2022",  "Pending"),
+
+];
+
 const fetchMissions = (setMissions) => {
-  axios.get(`${Mission_Api_Url_S1}`).then(
-    (res) => {
-      console.log(res.data);
-      setMissions(res.data);
-    },
-    (err) => {
-      console.error("error in getting Missions");
-    }
-  );
+
+      setMissions(missions);
+
 };
 
-//fetches missions by demandeur
-const fetchMissionsByDemandeur = (setMissionsByDemandeur, demandeur) => {
-  axios.get(`${Mission_Api_Url_S2}` + "/" + `${demandeur}`).then(
-    (res) => {
-      console.log(res.data);
-      setMissionsByDemandeur(res.data);
-    },
-    (err) => {
-      console.error("error in getting Missions by demandeur");
-    }
-  );
-};
-
-//creates a mission
-const createMission = (demandeur, contenu) => {
-  axios
-    .get(`${Mission_Api_Url_S2}` + "/" + `${demandeur}` + "/" + `${contenu}`)
-    .then(
-      (res) => {
-        console.log(res.data);
-      },
-      (err) => {
-        console.error("error in creating mission");
-      }
-    );
-};
-
-//Changes mission isValid to true
-const validateMission = (id) => {
-  axios.get(`${Mission_Api_Url_S3}` + "/" + `${id}`).then(
-    (res) => {
-      console.log(res.data);
-    },
-    (err) => {
-      console.error("error in validating mission");
-    }
-  );
-};
-
-//changes ordre of mission
-const changeOrdre = (id, ordre) => {
-  axios.get(`${Mission_Api_Url_S3}` + "/" + `${id}` + "/" + `${ordre}`).then(
-    (res) => {
-      console.log(res.data);
-    },
-    (err) => {
-      console.error("error in changing ordre of mission");
-    }
-  );
-};
-
-export {
-  fetchMissions,
-  fetchMissionsByDemandeur,
-  createMission,
-  validateMission,
-  changeOrdre,
-};
+export  {fetchMissions};

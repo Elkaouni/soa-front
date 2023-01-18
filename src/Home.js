@@ -9,7 +9,7 @@ import MissionTable from './Components/MissionTable';
 import RemboursementTable from "./Components/RemboursementTable";
 import {  TextField, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AddRemboursementModal from "./Components/AddRemboursementModal";
+//import AddRemboursementModal from "./Components/AddRemboursementModal";
 import BasicModalDialog from "./Components/AddRemModal";
 import {
   Button,
@@ -18,10 +18,10 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { fetchMissions, fetchMissionsByDemandeur } from "./Api/Mission";
+import { fetchMissions } from "./Api/MissionService";
 import { Stack } from "@mui/system";      
 import NewMissionModel from "./Components/NewMissionModel";
-import { fetchRemboursements, fetchRemboursementsByDemandeur } from './Api/Remboursement';
+import { fetchRemboursements } from './Api/RemboursementService';
 
 
 function TabPanel(props) {
@@ -82,7 +82,7 @@ const Home = () => {
     setDemandeur(e.target.value);
   };
   const handleSubmit=()=>{
-    fetchMissionsByDemandeur(setMissions, demandeur);
+    //fetchMissionsByDemandeur(setMissions, demandeur);
   }
   const handleClose = () => {
     setOpen(false);
@@ -91,7 +91,7 @@ const Home = () => {
     setRequester(e.target.value);
   };
   const onSubmit= () => {
-    fetchRemboursementsByDemandeur(setRemboursements,requester);
+    //fetchRemboursementsByDemandeur(setRemboursements,requester);
   }
 
   return (
@@ -107,7 +107,7 @@ const Home = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Typography mb={2} variant="h3" component="h2" align="center">
+        <Typography variant="h4" fontWeight="bold" sx={{ mb: "5px" }}>
           Missions
         </Typography>
         <Stack direction="row" spacing={2}>
@@ -131,10 +131,12 @@ const Home = () => {
               ))}
             </Select>
           </FormControl>
-          <Button variant="outlined" onClick={handleSubmit} >Rechercher</Button>
+          <Button style={{ backgroundColor:"#337f94", color:"white" }}
+          variant="outlined" onClick={handleSubmit} >Rechercher</Button>
           </Stack>
           </form>
-          <Button variant="outlined" onClick={()=>{
+          <Button style={{ backgroundColor:"#337f94", color:"white" }}
+          variant="outlined" onClick={()=>{
             setshowModal(true);
           }}>Demande de mission</Button>
         </Stack>
@@ -167,7 +169,9 @@ const Home = () => {
             name="requester"
             onChange={onChange}
           />
-          <IconButton aria-label="delete" size="small" onClick={()=>{fetchRemboursementsByDemandeur(setRemboursements,requester)}} >
+          <IconButton aria-label="delete" size="small" 
+          //onClick={()=>{fetchRemboursementsByDemandeur(setRemboursements,requester)}} 
+          >
             <SearchIcon fontSize="inherit" />
           </IconButton>
           </Stack>
@@ -175,7 +179,7 @@ const Home = () => {
 
           <Button
             variant="contained"
-            sx={{ m: "10px", backgroundColor: "#70d8bd" }}
+            sx={{ m: "10px", backgroundColor: "#337f94" }} //70d8bd
             onClick={() => {
               setOpen(true);
             }}

@@ -6,9 +6,11 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 // import { withStyles } from "@mui/styles";
 import { useEffect, useState } from "react";
+import Modal from '@mui/joy/Modal';
+import ModalDialog from '@mui/joy/ModalDialog';
 
 
-//import { createMission } from "../Api/MissionService";
+//import { createMission } from "../Api/Mission";
 
 
 // const styles = {
@@ -17,6 +19,8 @@ import { useEffect, useState } from "react";
 //     maxHeight: "45vh",
 //   },
 // };
+
+
 
 function BasicModal({ handleClose, open }) {
 
@@ -35,18 +39,29 @@ function BasicModal({ handleClose, open }) {
     //api call
     //createMission(formValues.demandeur,formValues.contenu);
   };
+  const closeModal = () => {
+    //api call
+    //createMission(formValues.demandeur,formValues.contenu);
+    handleClose()
+  };
 
   return (
-    <div>
-      <Dialog
+    <Modal open={open}>
+      <ModalDialog
         fullWidth="true"
         maxWidth="md"
         maxHeight="md"
         open={open}
         onClose={handleClose}
-        scroll="body"
-      
-      
+        scroll="body"   
+        aria-labelledby="basic-modal-dialog-title"
+          aria-describedby="basic-modal-dialog-description"
+          sx={{
+            maxWidth: 500,
+            borderRadius: 'md',
+            p: 3,
+            boxShadow: 'lg',
+          }}  
       >
         <form onSubmit={() => handleSubmit()}>
           <Grid
@@ -57,7 +72,7 @@ function BasicModal({ handleClose, open }) {
           >
             <Grid item xs={12}>
               <Box
-                sx={{ color: "#5778FF" }}
+                sx={{ color: "#337f94" }}
                 className="fw-bold text-center mt-2"
               >
                 Nouvelle Demande De Mission
@@ -85,14 +100,19 @@ function BasicModal({ handleClose, open }) {
             </Grid>
 
             <Grid item xs={12}>
-              <Button variant="outlined" color="success" type="submit">
-                Ajouter
-              </Button>
-            </Grid>
+    <Grid container spacing={2}>
+        <Grid item>
+            <Button sx={{ backgroundColor:"#337f94", color:"white" }} variant="outlined" type="submit">Ajouter</Button>
+        </Grid>
+        <Grid item>
+            <Button sx={{ backgroundColor:"#337f94", color:"white" }} variant="outlined" type="cancel">Annuler</Button>
+        </Grid>
+    </Grid>
+</Grid>
           </Grid>
         </form>
-      </Dialog>
-    </div>
+      </ModalDialog>
+    </Modal>
   );
 }
 

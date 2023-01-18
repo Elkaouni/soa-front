@@ -31,6 +31,12 @@ export default function BasicModalDialog(props) {
     onClose();
   
     }
+
+    const closeModdal = (e) => {
+      e.preventDefault()
+      onClose();
+    
+      }
   
 
 
@@ -77,6 +83,7 @@ export default function BasicModalDialog(props) {
               <TextField label="Frais" type="text" value={frais} name="frais" placeholder="Frais" onChange={onChange} required />
               <TextField label="Budget Attribué" type="text" value={budgetAtt} name="budgetAtt" placeholder="Budget Attribué" onChange={onChange} required />
               <Button onClick={onSubmit}>Submit</Button>
+              <Button onClick={closeModdal}>Annuler</Button>
             </Stack>
           </form>
         </ModalDialog>

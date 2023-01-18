@@ -10,36 +10,32 @@ import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
 import { Stack } from "@mui/system";
 import OrdreModal from "./OrdreModal";
-//import { validateMission } from "../Api/MissionService";
+//import { validateMission } from "../Api/Mission";
 
-function createData(id, demandeur, contenu, ordre, isValid) {
-  return { id, demandeur, contenu, ordre, isValid };
-}
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, true),
-  createData("Ice cream sandwich", 237, 9.0, 37, false),
-  createData("Eclair", 262, 16.0, 24, true),
-  createData("Cupcake", 305, 3.7, 67, true),
-  createData("Gingerbread", 356, 16.0, 49, false),
-];
+
 
 export default function MissionTable({ missions }) {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => {
     setShowModal(false);
   };
+  const [currentUser, setCurrentUser] = useState("user2"); //new line ana
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Id Mission </TableCell>
-            <TableCell align="center">Demandeur</TableCell>
-            <TableCell align="center">Contenu</TableCell>
-            <TableCell align="center">Ordre</TableCell>
+            <TableCell align="center">Professeur</TableCell>
+            <TableCell align="center">Destination</TableCell>
+            <TableCell align="center">Description</TableCell>
+            {currentUser !== "user1" && ( // new line
+              <TableCell align="center">Date Départ Prévu</TableCell>
+           /*new line ana*/ )}
+            <TableCell align="center">Date Retour Prévu</TableCell>
             <TableCell align="center">Statut</TableCell>
-            <TableCell align="center">Validation</TableCell>
+            <TableCell align="center">Valider/Annuler</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -52,46 +48,37 @@ export default function MissionTable({ missions }) {
                 {row.id}
               </TableCell>
               <TableCell align="center">{row.demandeur}</TableCell>
-              <TableCell align="center">{row.contenu}</TableCell>
+              <TableCell align="center">{row.destination}</TableCell>
+              <TableCell align="center">{row.description}</TableCell>
+              <TableCell align="center">{row.dateDepart}</TableCell>
+              <TableCell align="center">{row.dateRetour}</TableCell>
+              <TableCell align="center"> {row.statut}</TableCell>
               <TableCell align="center">
-                <Stack>
-                  <div>{row.ordre}</div>
+              <Stack>
                   <Button
-                    style={{ margin: "15px" }}
+                    style={{ margin: "5px", backgroundColor:"#337f94", color:"white" }}
                     variant="outlined"
                     onClick={() => {
-                      setShowModal(true);
+                      //setShowModal(true);
                     }}
                   >
-                    Modifer
+                    Valider
                   </Button>
                   <OrdreModal open={showModal} handleClose={handleClose} id={row.id}/>
                 </Stack>
-              </TableCell>
-              <TableCell align="center">
-                {(row.isValid == 1 )? "Validé" : "Non validé"}
-              </TableCell>
-              <TableCell align="center">
-                {!row.isValid && (
-                  
+                <Stack>
                   <Button
-                 
-                    variant="contained"
+                    style={{ margin: "5px", backgroundColor:"#337f94", color:"white" }}
+                    variant="outlined"
                     onClick={() => {
-                      //validateMission(row.id);
+                      //setShowModal(true);
                     }}
                   >
-                    
-                    Valider
+                    Annuler
                   </Button>
-                  
-                )}
-                {row.isValid && (
-                  <Button disabled variant="contained">
-                    Valider
-                  </Button>
-                )}
-              </TableCell>
+                  <OrdreModal open={showModal} handleClose={handleClose} id={row.id}/>
+                </Stack>
+                </TableCell>
             </TableRow>
           ))}
         </TableBody>

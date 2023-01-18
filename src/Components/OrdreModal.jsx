@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 
 
-import { changeOrdre, createMission } from "../Api/MissionService";
+//import { changeOrdre, createMission } from "../Api/Mission";
 
 
 // const styles = {
@@ -31,7 +31,7 @@ function BasicModal({ handleClose, open,id }) {
   };
   const handleSubmit = () => {
     //api call
-    changeOrdre(id,formValues.ordre);
+    //changeOrdre(id,formValues.ordre);
   };
 
   return (
@@ -55,7 +55,7 @@ function BasicModal({ handleClose, open,id }) {
           >
             <Grid item xs={12}>
               <Box
-                sx={{ color: "#5778FF" }}
+                sx={{ color: "#337f94" }}
                 className="fw-bold text-center mt-2"
               >
                 Changer l'ordre
@@ -75,7 +75,8 @@ function BasicModal({ handleClose, open,id }) {
             </Grid>
 
             <Grid item xs={12}>
-              <Button variant="outlined" color="success" type="submit">
+              <Button sx={{ backgroundColor:"#337f94", color:"white" }}
+              variant="outlined" type="submit">
                 Modifier
               </Button>
             </Grid>

@@ -1,35 +1,22 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Typography, useTheme, Button, IconButton, Grid } from "@mui/material";
-import { fetchRemboursements } from "../Api/RemboursementService";
+import { Box, Typography, useTheme, Button, IconButton, Grid, TableCell } from "@mui/material";
+//import { fetchRemboursements } from "../Api/Remboursement";
 import * as React from "react";
 import { useEffect } from "react";
-//import { validateRemboursement } from "../Api/RemboursementService";
-//import { validateRemboursementPrice } from "../Api/RemboursementService";
+//import { validateRemboursement } from "../Api/Remboursement";
+//import { validateRemboursementPrice } from "../Api/Remboursement";
 import OrderModalDialog from "./ChangeOrdreRem";
 import PriceModalDialog from "./PriceValidationModal";
 import EditIcon from '@mui/icons-material/Edit';
+import { Stack } from "@mui/system";
 
-const rows = [
-  {
-    id: 1,
-    demandeur: "Ahmed",
-    ordre: 1,
-    budgetAttrib: 900,
-    remboursementAttrib: 800,
-    isValid: true,
-    validPrice: false,
-  },
-  {
-    id: 2,
-    demandeur: "Ahmed",
-    validPrice: 500,
-    ordre: 1,
-    budgetAttrib: 900,
-    remboursementAttrib: 800,
-    isValid: false,
-    validPrice: false,
-  },
-];
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+
 
 export default function RemboursementTable(props) {
   const [open, setOpen] = React.useState(false);
@@ -51,12 +38,13 @@ export default function RemboursementTable(props) {
 
   const columns = [
     { field: "id", headerName: "Remboursement ID",flex: 1},
-    { field: "demandeur", headerName: "Demandeur", flex: 1, },
+    { field: "codeMission", headerName: "Code Mission", flex: 1, },
+    { field: "demandeur", headerName: "Professeur", flex: 1, },
     {
-      field: "ordre",
-      headerName: "Ordre",
+      field: "frais",
+      headerName: "Frais (DH)",
       flex: 1,
-      renderCell: ({ row: { ordre, id } }) => {
+      renderCell: ({ row: { frais, id } }) => {
         return (
           <Box
             width="60%"
@@ -71,8 +59,7 @@ export default function RemboursementTable(props) {
           >
             <Grid container direction="row" spacing={1}>
               <Grid item xs={8}>
-            <Typography m="20px">{ordre? ordre : "NA"
-            }</Typography>
+            <Typography m="20px">{frais? frais : "NA"}</Typography>
             </Grid>
             <Grid item xs={4}>
             <IconButton
@@ -91,18 +78,23 @@ export default function RemboursementTable(props) {
           </Box>
         );
       },
+    }, 
+    { field: "budgetAttrib", headerName: "Budget Initial", flex: 1, },
+    {
+      field: "statut",
+      headerName: "Statut",
+      flex: 1,
     },
-    { field: "budgetAttrib", headerName: "Budget Attribué", flex: 1, },
     {
       field: "remboursementAttrib",
-      headerName: "Remboursement Attribué",
+      headerName: "Montant Remboursé",
       flex: 1,
-    },
+    }, 
     {
-      field: "isValid",
-      headerName: "Validation",
+      field: "validation",
+      headerName: "Valider demande",
       flex: 1,
-      renderCell: ({ row: { isValid, id } }) => {
+      renderCell: ({ row: { validation, id } }) => {
         return (
           <Box
             width="60%"
@@ -112,19 +104,35 @@ export default function RemboursementTable(props) {
             justifyContent="center"
             borderRadius="4px"
           >
-            {isValid == 1 ? (
+            {validation == 1 ? (
               <Button variant="contained" color="success" disabled fullWidth>
                 Validé
               </Button>
+              
             ) : (
-              <Button
+              <div>
+                <Stack>
+                <Button
                 variant="contained"
-                sx={{ backgroundColor: "#70d8bd" }}
+                sx={{ backgroundColor: "#337f94" }}
                 //onClick={() => validateRemboursement(id)}
-                fullWidth
               >
                 Valider
               </Button>
+                </Stack>
+
+                <Stack>
+                <Button
+                variant="contained"
+                sx={{ backgroundColor: "#337f94" }}
+                //onClick={() => validateRemboursement(id)}
+              >
+                Annuler
+              </Button>
+                </Stack>
+                              
+                </div>
+              
             )}
           </Box>
         );
@@ -132,9 +140,9 @@ export default function RemboursementTable(props) {
     },
     {
       field: "validPrice",
-      headerName: "Validation du prix",
+      headerName: "Valider montant",
       flex: 1,
-      renderCell: ({ row: { validPrice, isValid, id, demandeur } }) => {
+      renderCell: ({ row: { validPrice, validation, id, demandeur } }) => {
         return (
           <Box
             width="60%"
@@ -148,27 +156,27 @@ export default function RemboursementTable(props) {
               <Button variant="contained" color="success" disabled fullWidth>
                 Validé
               </Button>
-            ) : isValid == 1 ? (
+            ) : validation == 1 ? (
               <>
                 <Button
                   variant="contained"
-                  sx={{ backgroundColor: "#70d8bd" }}
+                  sx={{ backgroundColor: "#337f94" }}
                   onClick={() => {
-                    setOpen2(true);
+                    //setOpen2(true);
                   }}
                   fullWidth
                 >
                   Valider
                 </Button>
                 <PriceModalDialog
-                  open2={open2}
-                  handleClose2={handleClose2}
+                  //open2={open2}
+                  //handleClose2={handleClose2}
                   id={id}
                   demandeur={demandeur}
                 />
               </>
             ) : (
-              <Typography>Request not Approved yet</Typography>
+              <Typography>Pending</Typography>
             )}
           </Box>
         );
@@ -176,9 +184,110 @@ export default function RemboursementTable(props) {
     },
   ];
 
-  return (
+ /* return (
     <div style={{ height: 300, width: "100%" }}>
       <DataGrid rows={remboursements} columns={columns} />
     </div>
+  ); */
+
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="remboursement table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Id </TableCell>
+            <TableCell align="center">Code Mission</TableCell>
+            <TableCell align="center">Professeur</TableCell>
+            <TableCell align="center">Frais</TableCell>
+            <TableCell align="center">Budget Initial</TableCell>
+            <TableCell align="center">Statut</TableCell>
+            <TableCell align="center">Montant Remboursé</TableCell>
+            <TableCell align="center">Valider Demande</TableCell>
+            <TableCell align="center">Valider Montant</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {remboursements.map((row) => (
+            <TableRow
+              key={row.id}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.id}
+              </TableCell>
+              <TableCell align="center">{row.codeMission}</TableCell>
+              <TableCell align="center">{row.professeur.nom + " " + row.professeur.prenom}</TableCell>
+              <TableCell align="center">{row.frais}</TableCell>
+              <TableCell align="center">{row.budgetAttrib}</TableCell>
+              <TableCell align="center">{row.statut}</TableCell>
+              <TableCell align="center">{row.remboursementAttrib}</TableCell>
+              <TableCell align="center">
+              <Stack>
+                  <Button
+                    style={{ margin: "5px", backgroundColor:"#337f94", color:"white" }}
+                    variant="outlined"
+                    onClick={() => {
+                      //setShowModal(true);
+                    }}
+                  >
+                    Valider
+                  </Button>
+                </Stack>
+                <Stack>
+                  <Button
+                    style={{ margin: "5px", backgroundColor:"#337f94", color:"white" }}
+                    variant="outlined"
+                    onClick={() => {
+                      //setShowModal(true);
+                    }}
+                  >
+                    Annuler
+                  </Button>
+                </Stack>
+                </TableCell>
+
+                <TableCell align="center">
+                <Box
+            width="60%"
+            m="0 auto"
+            p="5px"
+            display="flex"
+            justifyContent="center"
+            borderRadius="4px"
+          >
+            {row.validPrice == 1 ? (
+              <Button variant="contained" color="success" disabled fullWidth>
+                Validé
+              </Button>
+            ) : row.validation == 1 ? (
+              <>
+                <Button
+                  variant="contained"
+                  sx={{ backgroundColor: "#337f94" }}
+                  onClick={() => {
+                    //setOpen2(true);
+                  }}
+                  fullWidth
+                >
+                  Valider
+                </Button>
+                <PriceModalDialog
+                  //open2={open2}
+                  //handleClose2={handleClose2}
+                  id={row.id}
+                  demandeur={row.demandeur}
+                />
+              </>
+            ) : (
+              <Typography>Pending</Typography>
+            )}
+          </Box>
+                  </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+ 
+    </TableContainer>
   );
 }
